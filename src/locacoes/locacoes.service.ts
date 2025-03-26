@@ -88,4 +88,25 @@ export class LocacoesService {
 
     return { message: 'Locação encerrada com sucesso' };
   }
+
+  async listarTodas() {
+    return this.locacaoRepo.find({
+      relations: ['imovel', 'locatario'],
+      order: { createdAt: 'DESC' },
+    });
+  }
+
+  async listarPorImovel(imovelId: number) {
+    return this.locacaoRepo.find({
+      where: { imovel: { id: imovelId } },
+      relations: ['imovel', 'locatario'],
+    });
+  }
+
+  async listarPorLocatario(locatarioId: number) {
+    return this.locacaoRepo.find({
+      where: { locatario: { id: locatarioId } },
+      relations: ['imovel', 'locatario'],
+    });
+  }
 }

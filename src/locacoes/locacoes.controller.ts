@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   ParseIntPipe,
+  Get,
 } from '@nestjs/common';
 import { LocacoesService } from './locacoes.service';
 import { AlugarDto } from './dto/alugar.dto';
@@ -24,5 +25,20 @@ export class LocacoesController {
   @Patch(':id/encerrar')
   encerrar(@Param('id', ParseIntPipe) id: number) {
     return this.locacoesService.encerrarLocacao(id);
+  }
+
+  @Get()
+  listarTodas() {
+    return this.locacoesService.listarTodas();
+  }
+
+  @Get('imovel/:id')
+  listarPorImovel(@Param('id', ParseIntPipe) id: number) {
+    return this.locacoesService.listarPorImovel(id);
+  }
+
+  @Get('locatario/:id')
+  listarPorLocatario(@Param('id', ParseIntPipe) id: number) {
+    return this.locacoesService.listarPorLocatario(id);
   }
 }
